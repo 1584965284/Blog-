@@ -192,8 +192,14 @@ const handleSubmit=async()=>{
              </div>
              <Comment
                  actions={actions}
-                 author={<a style={{fontSize:"16px",fontWeight:"bold"}}>{user.userName}</a>}
-                 avatar={<Avatar src={"http://localhost:8080/upload/"+user.profile} alt="Han Solo" />}
+                 author={<a style={{fontSize:"16px",fontWeight:"bold"}} onClick={()=>{
+                     history.push('/forum/userPage/'+mPost.userID)
+                 }}>{user.userName}</a>}
+                 avatar={<a>
+                     <Avatar src={"http://localhost:8080/upload/"+user.profile} alt="Han Solo" onClick={() => {
+                                history.push('/forum/userPage/'+mPost.userID)
+                             }}/>
+                     </a>}
                  content={mPost.mpostContent}
                  datetime={
                      <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
@@ -237,12 +243,14 @@ const handleSubmit=async()=>{
                          }
                      >
                          <List.Item.Meta
-                             avatar={<Avatar src={"http://localhost:8080/upload/"+item.profile} />}
+                             avatar={<a>
+                                 <Avatar src={"http://localhost:8080/upload/"+item.profile} onClick={() => {
+                                history.push('/forum/userPage/'+item.userID)
+                             }}/>
+                             </a>}
                              title={
                                  <a  onClick={() => {
-                                     //userInfo=JSON.parse(JSON.stringify(item));
-                                     //setUserInfo(item)
-                                     get_by_uid2({uid:1}).then()
+                                    history.push('/forum/userPage/'+item.userID)
                                  }}>
                                      {item.userName}
                                  </a>

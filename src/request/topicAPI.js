@@ -221,6 +221,19 @@ const del_fpost=(params)=>{
         method: 'post',
         url: 'fposts/del_fpost',
         headers: {
+
+        },
+        params:params
+
+
+    })
+}
+const get_by_day=(params)=>{
+
+    return  request({
+        method: 'post',
+        url: 'mposts/get_by_day',
+        headers: {
             "Content-Type": "application/json",
 
         },
@@ -229,8 +242,23 @@ const del_fpost=(params)=>{
 
     })
 }
+const getPost=(params)=>{
+
+    return  request({
+        method: 'post',
+        url: 'mposts/get_by_uid',
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+        params:params
+
+
+    })
+}
+
 export {
     getall,check_my_post,get_by_mid,get_by_tid,change_password,reg,change_avatar,new_fpost,
     get_by_title,get_by_uid,change_info,get_by_uid2,mlike,flike,new_mpost,getM,
-    del_mpost,del_fpost
+    del_mpost,del_fpost,get_by_day,getPost
 } ;

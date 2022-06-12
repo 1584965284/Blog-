@@ -29,7 +29,7 @@ export default function Login (){
           localStorage.setItem('lastLoginTime',moment(new Date()))
           
           setTimeout(() => {
-            history.push('/admin')
+            //history.push('/admin')
           }, 200);
         }else{
           message.error('登录失败')

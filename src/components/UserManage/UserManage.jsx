@@ -4,10 +4,15 @@ import {List, Avatar, Space, Input, Button, Modal, Tooltip, Select, Comment,mess
 import {MessageOutlined, LikeOutlined, StarOutlined, PlusOutlined} from '@ant-design/icons';
 import {useHistory} from 'react-router-dom'
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
-import {getall,get_by_tid,get_by_mid, get_by_title,new_mpost} from '@/request/topicAPI'
+import {getall,get_by_tid,get_by_mid, get_by_title,new_mpost,get_by_day} from '@/request/topicAPI'
 import MyComment from "@/components/Post/Post";
+
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
+
 let input1=false;
-let select='username';
+let select='0';
 const { TextArea } = Input;
 
 
@@ -24,20 +29,32 @@ export default function UserManage(props){
     const [txt,setTxt]=useState('')
     const [userInfo,setUserInfo]=useState({});
     const [isShowCalendar,setIsShowCalendar]=useState(false)
+    const [isToday,setIsToday]=useState(true)
+    const [day,setDay]=useState(moment().format('YYYY-MM-DD'))
    // const [select,setSelect]=useState('');
     
     const history =useHistory();
+
+    //methods:
+
     const handleChange=(selectedItems,option)=>{
       //setSelect(option.value)
       select=option.value;
       if(select==1||select=="1"){
-        
+        setIsShowCalendar(true)
       }
     }
     const selectBefore = (
-      <Select defaultValue="0" className="select-before" onChange={handleChange}>
+      <Select defaultValue="0" className="select-before" onChange={handleChange}
+        onSelect={(a,option)=>{
+          select=option.value;
+      if(select==1||select=="1"){
+        setIsShowCalendar(true)
+      }
+        }}
+      >
         <Option value="0">标题</Option>
-        <Option value="1">日期</Option>
+        <Option value="1" onClick={()=>{setIsShowCalendar(true)}}>日期</Option>
       </Select>
     );
 
@@ -46,11 +63,8 @@ export default function UserManage(props){
         get_by_tid({tid:props.match.params.tid})
             .then(res => {
                 if(res.state===200){
-                    //console.log(1);
-                    /*setData([...data, ...JSON.parse(res.data.data.adminInfo1) ]);*/
                     setData(res.data);
                 }
-
             })
       }, [props.match.params.tid]);
     
@@ -66,8 +80,10 @@ const onSearch = value => {
     )
     
 };
-const onPanelChange = (value, mode) => {
-  console.log(value.format('YYYY-MM-DD'), mode);
+const onPanelChange = (value) => {
+  setIsToday(false)
+  setDay(value.format('YYYY-MM-DD'))
+  
 };
 const IconText = ({ icon, text }) => (
   <Space>
@@ -81,9 +97,16 @@ const IconText = ({ icon, text }) => (
 
     return(
         <div>
-           <Modal title="选择日期" visible={isShowCalendar} onOk={()=>{}} onCancel={()=>{}}>
+           <Modal title="选择日期" visible={isShowCalendar} onOk={()=>{
+             setIsShowCalendar(false);
+             get_by_day({day:day,tid:props.match.params.tid}).then(res=>{
+              if(res.state===200){
+                setData(res.data)
+              }
+            })
+           }} onCancel={()=>{setIsShowCalendar(false)}}>
             <div className="site-calendar-demo-card">
-                  <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+                  <Calendar fullscreen={false} onChange={onPanelChange} />
             </div>
         </Modal>
             <Modal
@@ -174,7 +197,10 @@ const IconText = ({ icon, text }) => (
         }
       >
         <List.Item.Meta
-          avatar={<Avatar src={"http://localhost:8080/upload/"+item.profile} />}
+          avatar={<a>
+            <Avatar src={"http://localhost:8080/upload/"+item.profile} onClick={() => {
+                                history.push('/forum/userPage/'+item.userID)}}/>
+            </a>}
           title={
             <a onClick={() => {
              history.push('/forum/follows/'+item.mpostID)
