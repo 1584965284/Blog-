@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {useHistory,Route,Switch} from 'react-router-dom'
 import { AudioOutlined } from '@ant-design/icons';
 import { List, message, Avatar, Skeleton, Divider,Affix,
-    Modal, Button,Input,Card,Comment, Tooltip ,Form,BackTop } from 'antd';
+    Modal, Button,Input,Card,Comment, Tooltip ,Form,BackTop,Image } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import { DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined,PlusOutlined } from '@ant-design/icons';
@@ -206,13 +206,28 @@ const handleSubmit=async()=>{
                                 history.push('/forum/userPage/'+mPost.userID)
                              }}/>
                      </a>}
-                 content={mPost.mpostContent}
+                 content={<div>{mPost.mpostContent}
+                 <>
+                 {
+                     props.match.params.mid=="m5"?(
+                        <Image
+                        src={require("./d8d9-b113d05.jpg")}
+                        style={{width:"auto",height:"auto",maxWidth:"300px",maxHeight:"260px",margin:"20px 50px"}}
+                        />
+                     ):(<div></div>)
+                 }
+                 </>
+                            
+                 </div>}
                  datetime={
                      <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
                          <span>{mPost.mpostTime?(mPost.mpostTime.slice(0,10)):("暂无时间")}</span>
                      </Tooltip>
                  }
+
              />
+             
+
              <Button style={{position:"relative",bottom:'45px',left:"84%",width:"70px"}} 
                          onClick={createFollow.bind(this,0)}>回复</Button>
              {isAuthor?(<a key="comment-basic-reply-to"
@@ -227,6 +242,7 @@ const handleSubmit=async()=>{
                 }}
              >删除帖子</a>):(<div></div>)}
          </div>
+         
          <div>
              <List
                  itemLayout="vertical"
@@ -319,6 +335,7 @@ const handleSubmit=async()=>{
                     />
                 }
             />
+
              </div>
              <MyComment />
 

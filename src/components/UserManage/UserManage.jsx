@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios  from 'axios';
-import {List, Avatar, Space, Input, Button, Modal, Tooltip, Select, Comment,message,Calendar} from 'antd';
+import {List, Avatar, Space, Input, Button, Modal, Tooltip, Select, Comment,message,Calendar,Image} from 'antd';
 import {MessageOutlined, LikeOutlined, StarOutlined, PlusOutlined} from '@ant-design/icons';
 import {useHistory} from 'react-router-dom'
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
@@ -212,12 +212,23 @@ const IconText = ({ icon, text }) => (
         }
           description={item.mpostTime?item.mpostTime.slice(0,10):"暂无时间"}
         />
+        <div style={{color:"gray",textAlign:"right",width:"90%",position:"absolute"}}>最后回帖时间：{item.lastFoTime.slice(0,10)+' '+item.lastFoTime.slice(11,19)}</div>
+       
         <div
           style={{position:"relative",bottom:"12px",left:"45px",width:"400px",overflow:"hidden",fontWeight:"500"}}
         ><span style={{fontWeight:"500"}}>作者：</span>{item.userName}</div>
           <div style={{width:"90%",margin:"0 auto" ,maxHeight:"110px",overflow:"hidden",textOverflow:"ellipsis"}}>
               {item.mpostContent}
           </div>
+
+          {props.match.params.tid==1004?(<div>
+            <Image
+            
+            src={require("./d8d9-b113d05.jpg")}
+            style={{width:"auto",height:"auto",maxWidth:"300px",maxHeight:"260px",margin:"20px 50px"}}
+            
+          />
+          </div>):(<div></div>)}
         </List.Item>
      
     )}
