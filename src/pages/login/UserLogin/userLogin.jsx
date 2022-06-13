@@ -39,7 +39,8 @@ export default function Login (){
                     history.push('/forum')
                 }, 200);
                 localStorage.setItem('token',res.data.userID)
-                
+                localStorage.setItem('profile',res.data.profile)
+                localStorage.setItem('userName',res.data.userName)
                 localStorage.setItem('user',JSON.stringify(res.data))
                 //console.log(res.data.userID)
                 localStorage.setItem('lastLoginTime',moment(new Date()))

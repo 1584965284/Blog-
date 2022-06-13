@@ -29,7 +29,10 @@ export default function Audit(props){
     const [toFollow,setToFollow]=useState(0);
     const [mPost,setMPost]=useState({});
     const [user,setUser]=useState({})
+    const [myAvatar,setMyAvatar]=useState('')
+
     let [value,setValue]=useState('');
+
 
     const history =useHistory();
     const myID=localStorage.getItem("token")
@@ -61,7 +64,7 @@ const handleSubmit=async()=>{
         
             mpostID:props.match.params.mid,
             fpostContent:value,
-            ffloor:toFollow
+            refloor:toFollow
         
     }).then(res=>{
         if(res.state===200){
@@ -152,6 +155,9 @@ const handleSubmit=async()=>{
                     })
                 }else {message.error(res.message)}
             })
+            if(localStorage.getItem("profile")){
+                setMyAvatar(localStorage.getItem("profile"))
+            }
     }, []);
 
     //components
@@ -207,6 +213,8 @@ const handleSubmit=async()=>{
                      </Tooltip>
                  }
              />
+             <Button style={{position:"relative",bottom:'45px',left:"84%",width:"70px"}} 
+                         onClick={createFollow.bind(this,0)}>回复</Button>
              {isAuthor?(<a key="comment-basic-reply-to"
                 style={{fontSize:"12px",display:'block',position:"relative",bottom:"37px",left:"150px"}}
                 onClick={()=>{
@@ -257,10 +265,11 @@ const handleSubmit=async()=>{
                              }
                              description={item.fpostTime?(item.ffloor+'楼  '+' '+'  '+item.fpostTime.slice(0,10)):('暂无时间')}
                          />
-                         <Button style={{position:"relative",bottom:'45px',left:"90%",width:"70px"}} onClick={createFollow.bind(this,item.ffloor)}>回复</Button>
+                         <Button style={{position:"relative",bottom:'45px',left:"90%",width:"70px"}} 
+                         onClick={createFollow.bind(this,item.ffloor)}>回复</Button>
                            { item.userID==myID?
                                (  <a key="comment-basic-reply-to"
-                               style={{fontSize:"12px",display:'block',position:"relative",bottom:"70px",left:"180px"}}
+                               style={{width:"50px",fontSize:"12px",display:'block',position:"relative",bottom:"70px",left:"180px"}}
                                onClick={()=>{
                                 del_fpost({fid:item.fpostID}).then(res=>{
                                        if(res.state===200){
@@ -279,6 +288,12 @@ const handleSubmit=async()=>{
                                }}
                            >删除</a>):(<div></div>)
                            } 
+
+                            <div
+                               style={{width:"150px",fontSize:"12px",display:'block',position:"relative",bottom:"42px",left:"60px",color:"gray"}}
+                               
+                           >回复 {item.refloor} 楼</div>
+
                          <div style={{width:'90%',margin:"0 auto"}}>
                          {item.fpostContent}
                              </div>
@@ -294,7 +309,7 @@ const handleSubmit=async()=>{
 
                  </span>
              <Comment
-                avatar={<Avatar src={"http://localhost:8080/upload/"+user.profile} alt="Han Solo" />}
+                avatar={<Avatar src={"http://localhost:8080/upload/"+myAvatar} alt="Han Solo" />}
                 content={
                     <Editor
                         onChange={handleChange}
