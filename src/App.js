@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import "antd/dist/antd.css"
+import "antd/dist/antd.less"
 import 'moment/locale/zh-cn'
 import {Route,Switch,useHistory } from 'react-router-dom'
 import { Button,message } from 'antd'

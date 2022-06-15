@@ -68,7 +68,7 @@ export default function Login (){
     return(
         <div className='login'>
             <header>
-                <h1>BBS论坛</h1>
+                <h1 style={{color:"#595959"}}>ruyu博客 Blog</h1>
             </header>
 
             <section>

@@ -65,7 +65,9 @@ export default function MyHeader(){
         </div>
       ):(<div></div>)}
     
-      <Menu onClick={handleClick} theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
+      <Menu onClick={handleClick}
+            style={{width:"70%"}}
+            theme="light" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
       
     </Header>
     </div>
