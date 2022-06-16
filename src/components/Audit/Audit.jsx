@@ -186,7 +186,7 @@ const handleSubmit=async()=>{
 
          <div  onClick={createFollow.bind(this,-1)}
              style={{position:'fixed',width:'43px',height:"43px",
-             background:"#1890ff",borderRadius:"50%","bottom":"110px",
+             background:"#faad14",borderRadius:"50%","bottom":"110px",
              right:"98px",zIndex:"999",textAlign:"center",lineHeight:"45px",fontSize:"20px",color:"white"}}>
              <PlusOutlined />
          </div>
@@ -206,12 +206,15 @@ const handleSubmit=async()=>{
                                 history.push('/forum/userPage/'+mPost.userID)
                              }}/>
                      </a>}
-                 content={<div>{mPost.mpostContent}
+                 content={<div>
+                     <div style={{fontSize:"16px",width:"90%"}}>
+                     {mPost.mpostContent}
+                     </div>
                  <>
                  {
-                     props.match.params.mid=="m5"?(
+                     props.match.params.mid=="m2"?(
                         <Image
-                        src={require("./d8d9-b113d05.jpg")}
+                        src={require("./a.png")}
                         style={{width:"auto",height:"auto",maxWidth:"300px",maxHeight:"260px",margin:"20px 50px"}}
                         />
                      ):(<div></div>)
@@ -240,7 +243,7 @@ const handleSubmit=async()=>{
                         }else message.error(res.message)
                     })
                 }}
-             >删除帖子</a>):(<div></div>)}
+             >删除博客</a>):(<div></div>)}
          </div>
          
          <div>

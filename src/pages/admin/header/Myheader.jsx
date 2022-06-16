@@ -56,7 +56,7 @@ export default function MyHeader(){
     },[])
   return(
     <div>
-    <Header className="header">
+    <Header className="header" style={{overflow:"hidden"}}>
       {isLog?(
         <div>
           <Avatar size={40} src={"http://localhost:8080/upload/"+user.profile}
@@ -64,9 +64,9 @@ export default function MyHeader(){
           <span className='rightName'>{user.userName}</span>
         </div>
       ):(<div></div>)}
-    
+      <span style={{float:"left",fontSize:"20px",fontWeight:"bold"}}>ruyu Blog 博客系统</span>
       <Menu onClick={handleClick}
-            style={{width:"70%"}}
+            style={{width:"43%",marginLeft:"720px",overflow:"hidden"}}
             theme="light" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
       
     </Header>

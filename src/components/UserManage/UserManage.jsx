@@ -110,14 +110,14 @@ const IconText = ({ icon, text }) => (
             </div>
         </Modal>
             <Modal
-                title="发帖"
+                title="发博客"
                 centered
                 visible={visible}
                 onOk={async () => {
                     setVisible(false);
                     let res=await new_mpost({mpostTitle:title,mpostContent:txt,topicID:props.match.params.tid})
                     if(res.state===200){
-                        message.success("发帖成功");
+                        message.success("成功");
                         get_by_tid({tid:props.match.params.tid})
                           .then(res => {
                               if(res.state===200){
@@ -169,7 +169,7 @@ const IconText = ({ icon, text }) => (
         <Search addonBefore={selectBefore} placeholder="输入搜索内容" onSearch={onSearch} enterButton style={{maxWidth:'40%'}}/>
             <div  onClick={createPost}
                   style={{position:'fixed',width:'43px',height:"43px",
-                      background:"#1890ff",borderRadius:"50%","bottom":"110px",
+                      background:"#faad14",borderRadius:"50%","bottom":"110px",
                       right:"98px",zIndex:"999",textAlign:"center",lineHeight:"45px",fontSize:"20px",color:"white"}}>
                 <PlusOutlined />
             </div>
@@ -212,7 +212,7 @@ const IconText = ({ icon, text }) => (
         }
           description={item.mpostTime?item.mpostTime.slice(0,10):"暂无时间"}
         />
-        <div style={{color:"gray",textAlign:"right",width:"90%",position:"absolute"}}>最后回帖时间：{item.lastFoTime.slice(0,10)+' '+item.lastFoTime.slice(11,19)}</div>
+        <div style={{color:"gray",textAlign:"right",width:"90%",position:"absolute"}}>最后回复时间：{item.lastFoTime.slice(0,10)+' '+item.lastFoTime.slice(11,19)}</div>
        
         <div
           style={{position:"relative",bottom:"12px",left:"45px",width:"400px",overflow:"hidden",fontWeight:"500"}}
@@ -221,10 +221,10 @@ const IconText = ({ icon, text }) => (
               {item.mpostContent}
           </div>
 
-          {props.match.params.tid==1004?(<div>
+          {props.match.params.tid==1005?(<div>
             <Image
             
-            src={require("./d8d9-b113d05.jpg")}
+            src={require("./a.png")}
             style={{width:"auto",height:"auto",maxWidth:"300px",maxHeight:"260px",margin:"20px 50px"}}
             
           />
